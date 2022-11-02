@@ -26,21 +26,21 @@ namespace paintti
         public MainWindow()
         {
             InitializeComponent();
-           
 
-     
+
+
         }
         public int koko = 0;
 
         private void Maalaus(object sender, MouseButtonEventArgs e)
         {
-        
+
         }
         private void CreateLine(double x1, double y1, double x2, double y2)
         {
             // Create a Line  
             Line redLine = new Line();
-            
+
             // Create a red Brush  
             SolidColorBrush redBrush = new SolidColorBrush();
             redBrush.Color = Colors.Red;
@@ -55,11 +55,11 @@ namespace paintti
 
         private void brushkoko_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (brushkoko.SelectedItem==Suuri)
+            if (brushkoko.SelectedItem == Suuri)
             {
                 kanvas.DefaultDrawingAttributes.Width = 30;
                 kanvas.DefaultDrawingAttributes.Height = 30;
-               
+
             }
             if (brushkoko.SelectedItem == Keskisuuri)
             {
@@ -100,6 +100,15 @@ namespace paintti
 
         private void brush_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (brush.SelectedItem == Nel)
+            {
+                kanvas.DefaultDrawingAttributes.StylusTip = StylusTip.Rectangle;
+            }
+            if (brush.SelectedItem == ymp)
+            {
+                kanvas.Background = Colors.Cyan;
+              
+            }
             if (brush.SelectedItem == Erase)
             {
                 kanvas.EditingMode = InkCanvasEditingMode.EraseByPoint;
@@ -108,11 +117,11 @@ namespace paintti
             {
                 kanvas.EditingMode = InkCanvasEditingMode.EraseByStroke;
             }
-            if(brush.SelectedItem== Highlighter)
+            if (brush.SelectedItem == Highlighter)
             {
                 kanvas.EditingMode = InkCanvasEditingMode.Ink;
                 kanvas.DefaultDrawingAttributes.IsHighlighter = true;
-                
+
 
             }
             if (brush.SelectedItem == Grafiikka)
@@ -127,7 +136,7 @@ namespace paintti
                 if (brushkoko.SelectedItem == Keskisuuri)
                 {
                     kanvas.DefaultDrawingAttributes.Width = 20;
-                   kanvas.DefaultDrawingAttributes.Height = 1;
+                    kanvas.DefaultDrawingAttributes.Height = 1;
                 }
                 if (brushkoko.SelectedItem == Pieni)
                 {
@@ -160,29 +169,29 @@ namespace paintti
             }
             if (brush.SelectedItem == Sivellin)
             {
-                kanvas.DefaultDrawingAttributes.FitToCurve=true;
-               // kanvas.DefaultDrawingAttributes.IsHighlighter = Opacity=3.1;
+                kanvas.DefaultDrawingAttributes.FitToCurve = true;
+                // kanvas.DefaultDrawingAttributes.IsHighlighter = Opacity=3.1;
             }
             if (brush.SelectedItem == Select)
             {
                 kanvas.EditingMode = InkCanvasEditingMode.Select;
-                
+
                 // kanvas.DefaultDrawingAttributes.IsHighlighter = Opacity=3.1;
             }
         }
 
         private void Download_Click(object sender, RoutedEventArgs e)
         {
-            
+
             RenderTargetBitmap rtb = new RenderTargetBitmap((int)kanvas.RenderSize.Width,
     (int)kanvas.RenderSize.Height, 96d, 96d, System.Windows.Media.PixelFormats.Default);
             rtb.Render(kanvas);
 
-            var crop = new CroppedBitmap(rtb, new Int32Rect(0, 0, 497, 236));
+            var crop = new CroppedBitmap(rtb, new Int32Rect(0, 0, 497, 249));
 
             BitmapEncoder pngEncoder = new PngBitmapEncoder();
             pngEncoder.Frames.Add(BitmapFrame.Create(crop));
-            using (var fs = System.IO.File.OpenWrite(Nimi.Text))
+            using (var fs = System.IO.File.OpenWrite($"{Nimi.Text}.png"))
             {
                 pngEncoder.Save(fs);
             }
@@ -190,20 +199,32 @@ namespace paintti
 
         private void Upload_Click(object sender, RoutedEventArgs e)
         {
-         OpenFileDialog openFileDialog = new OpenFileDialog();
-    if(openFileDialog.ShowDialog() == true)
-    {
+            kanvas.Children.Clear();
+            kanvas.Strokes.Clear();
+            Nimi.Clear();
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
                 Uri fileUri = new Uri(openFileDialog.FileName);
                 BitmapImage img = new BitmapImage(fileUri);
 
                 Image image = new Image
                 {
-                    Width = 100,
+
+
+
                     Source = img
                 };
                 kanvas.Children.Add(image);
+
             }
-    }
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+        
+
         }
     }
+}
 

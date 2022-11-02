@@ -12,11 +12,13 @@
             <Label x:Name="Keskisuuri" Content="Keskisuuri"/>
             <Label x:Name="Suuri" Content="Suuri"/>
         </ComboBox>
-        <InkCanvas x:Name="kanvas" HorizontalAlignment="Left" Height="249" Margin="10,60,0,0" VerticalAlignment="Top" Width="497" MouseLeftButtonDown="Maalaus">
-            <InkCanvas.Background>
-                <SolidColorBrush Color="White" Opacity="1"/>
-            </InkCanvas.Background>
-        </InkCanvas>
+        <Border Margin="10,60,0,0">
+            <InkCanvas x:Name="kanvas" HorizontalAlignment="Left" Height="249"  VerticalAlignment="Top" Width="497"  >
+                <InkCanvas.Background>
+                    <SolidColorBrush Color="White" Opacity="1"/>
+                </InkCanvas.Background>
+            </InkCanvas>
+        </Border>
         <Button x:Name="red"  HorizontalAlignment="Left" Margin="161,10,0,0" VerticalAlignment="Top" Width="21" Click="red_Click" Height="15" Background="Red"/>
         <Button x:Name="blue"  HorizontalAlignment="Left" Margin="187,10,0,0" VerticalAlignment="Top" Width="21" Click="blue_Click" Height="15" Background="#FF000CFF"/>
         <Button x:Name="yellow"  HorizontalAlignment="Left" Margin="213,10,0,0" VerticalAlignment="Top" Width="21" Click="yellow_Click" Height="15" Background="#FFFFF300"/>
@@ -30,11 +32,14 @@
             <Label x:Name="Erase_all" Content="Poisto "/>
             <Label x:Name="Erase" Content="Kumi "/>
             <Label x:Name="Select" Content="Select "/>
+            <Label x:Name="Nel" Content="Neliö "/>
+            <Label x:Name="ymp" Content="Ympyrä "/>
         </ComboBox>
         <Button x:Name="btnSave"  Content="Download" HorizontalAlignment="Left" Margin="397,10,0,0" VerticalAlignment="Top" Width="75" Click="Download_Click"/>
         <Button x:Name="Upload" Content="Upload" HorizontalAlignment="Left" Margin="397,35,0,0" VerticalAlignment="Top" Width="75" Click="Upload_Click"/>
-        <TextBox x:Name="Nimi" HorizontalAlignment="Left" Height="23" Margin="20,35,0,0" TextWrapping="Wrap" Text="Nimi teokselle" VerticalAlignment="Top" Width="120"/>
-
-        <Image Name="imgDynamic" Margin="10"  />
+        <TextBox x:Name="Nimi" HorizontalAlignment="Left" Height="23" Margin="10,35,0,0" TextWrapping="Wrap" Text="Nimi teokselle" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="Ympyra" HorizontalAlignment="Left" Margin="135,35,0,0" VerticalAlignment="Top" Width="75">
+            <Button x:Name="button" Content="Button" Width="75" Click="button_Click"/>
+        </Button>
     </Grid>
 </Window>
