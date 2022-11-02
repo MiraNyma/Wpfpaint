@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -26,33 +27,14 @@ namespace paintti
         public MainWindow()
         {
             InitializeComponent();
-
-            CreateCircle(new CircleArea() { X = 100, Y = 200, Radius = 100 });
+           
 
         }
         public int koko = 0;
 
-        private void Maalaus(object sender, MouseButtonEventArgs e)
-        {
 
-        }
-        private void CreateLine(double x1, double y1, double x2, double y2)
-        {
-            // Create a Line  
-            Line redLine = new Line();
-
-            // Create a red Brush  
-            SolidColorBrush redBrush = new SolidColorBrush();
-            redBrush.Color = Colors.Red;
-
-            // Set Line's width and color  
-            redLine.StrokeThickness = 4;
-            redLine.Stroke = redBrush;
-
-            // Add line to the Grid.  
-            kanvas.Children.Add(redLine);
-        }
-
+        
+        
         private void brushkoko_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (brushkoko.SelectedItem == Suuri)
@@ -104,7 +86,7 @@ namespace paintti
             {
                 kanvas.DefaultDrawingAttributes.StylusTip = StylusTip.Rectangle;
             }
-           
+
             if (brush.SelectedItem == Erase)
             {
                 kanvas.EditingMode = InkCanvasEditingMode.EraseByPoint;
@@ -115,6 +97,8 @@ namespace paintti
             }
             if (brush.SelectedItem == Highlighter)
             {
+                kanvas.DefaultDrawingAttributes.FitToCurve = false;
+                kanvas.DefaultDrawingAttributes.StylusTip = StylusTip.Ellipse;
                 kanvas.EditingMode = InkCanvasEditingMode.Ink;
                 kanvas.DefaultDrawingAttributes.IsHighlighter = true;
 
@@ -122,6 +106,9 @@ namespace paintti
             }
             if (brush.SelectedItem == Grafiikka)
             {
+                kanvas.DefaultDrawingAttributes.FitToCurve = false;
+                kanvas.DefaultDrawingAttributes.IsHighlighter = false;
+                kanvas.DefaultDrawingAttributes.StylusTip = StylusTip.Ellipse;
                 kanvas.EditingMode = InkCanvasEditingMode.Ink;
                 if (brushkoko.SelectedItem == Suuri)
                 {
@@ -143,6 +130,7 @@ namespace paintti
             }
             if (brush.SelectedItem == Tussi)
             {
+                kanvas.DefaultDrawingAttributes.StylusTip = StylusTip.Ellipse;
                 kanvas.EditingMode = InkCanvasEditingMode.Ink;
                 kanvas.DefaultDrawingAttributes.FitToCurve = false;
                 kanvas.DefaultDrawingAttributes.IsHighlighter = false;
@@ -165,11 +153,15 @@ namespace paintti
             }
             if (brush.SelectedItem == Sivellin)
             {
+                kanvas.DefaultDrawingAttributes.StylusTip = StylusTip.Ellipse;
                 kanvas.DefaultDrawingAttributes.FitToCurve = true;
+                kanvas.DefaultDrawingAttributes.IsHighlighter = false;
                 // kanvas.DefaultDrawingAttributes.IsHighlighter = Opacity=3.1;
             }
             if (brush.SelectedItem == Select)
             {
+                kanvas.DefaultDrawingAttributes.FitToCurve = false;
+                kanvas.DefaultDrawingAttributes.IsHighlighter = false;
                 kanvas.EditingMode = InkCanvasEditingMode.Select;
 
                 // kanvas.DefaultDrawingAttributes.IsHighlighter = Opacity=3.1;
@@ -216,10 +208,77 @@ namespace paintti
             }
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void Koko(object sender, RoutedEventArgs e)
         {
-        
+            kanvas.Width =double.Parse( Nimi.Text);
+            kanvas.Width = double.Parse(Korkeus.Text);
+        }
 
+        private void Flipped(object sender, RoutedEventArgs e)
+        {
+            StrokeCollection copiedStrokes = kanvas.Strokes.Clone();
+            Matrix rotatingMatrix = new Matrix();
+            double canvasLeft = Canvas.GetLeft(kanvas);
+            double canvasTop = Canvas.GetTop(kanvas);
+            Point rotatePoint = new Point(kanvas.Width / 2, kanvas.Height / 2);
+
+            rotatingMatrix.RotateAt(90, rotatePoint.X, rotatePoint.Y);
+            copiedStrokes.Transform(rotatingMatrix, false);
+            kanvas.Strokes = copiedStrokes;
+        }
+        private class CircleArea
+        {
+            public int X;
+            public int Y;
+            public int Radius;
+        }
+
+        private void CreateCircle(CircleArea circle)
+        {
+            Ellipse c = new Ellipse()
+            {
+                Width = circle.Radius * 2,
+                Height = circle.Radius * 2,
+                Stroke = Brushes.Red,
+                StrokeThickness = 6
+            };
+
+            kanvas.Children.Add(c);
+
+            c.SetValue(Canvas.LeftProperty, (double)circle.X);
+            c.SetValue(Canvas.TopProperty, (double)circle.Y);
+        }
+        private void CreateLine(double x1, double y1, double x2, double y2)
+        {
+            // Create a Line  
+            Line redLine = new Line();
+            redLine.X1 = x1;
+            redLine.Y1 = y1;
+            redLine.X2 = x2;
+            redLine.Y2 = y2;
+
+            // Create a red Brush  
+            SolidColorBrush redBrush = new SolidColorBrush();
+            redBrush.Color = Colors.Red;
+
+            // Set Line's width and color  
+            redLine.StrokeThickness = 4;
+            redLine.Stroke = redBrush;
+
+            // Add line to the Grid.  
+            kanvas.Children.Add(redLine);
+        }
+        public double x;
+        public double y;
+        public void Kordit(object sender, MouseButtonEventArgs e)
+        {
+             x = e.GetPosition(kanvas).X;
+             y = e.GetPosition(kanvas).Y;
+        }
+
+        private void Ympyra_click(object sender, RoutedEventArgs e)
+        {
+            CreateCircle(new CircleArea() { X= int.Parse(x.ToString()), Y = int.Parse( y.ToString()), Radius = 50 });
         }
     }
 }
