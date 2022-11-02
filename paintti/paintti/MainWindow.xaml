@@ -1,0 +1,40 @@
+﻿<Window x:Class="paintti.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:paintti"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid Background="LightGray">
+        <ComboBox x:Name="brushkoko" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="brushkoko_SelectionChanged">
+            <Label x:Name="Pieni" Content="Pieni"/>
+            <Label x:Name="Keskisuuri" Content="Keskisuuri"/>
+            <Label x:Name="Suuri" Content="Suuri"/>
+        </ComboBox>
+        <InkCanvas x:Name="kanvas" HorizontalAlignment="Left" Height="249" Margin="10,60,0,0" VerticalAlignment="Top" Width="497" MouseLeftButtonDown="Maalaus">
+            <InkCanvas.Background>
+                <SolidColorBrush Color="White" Opacity="1"/>
+            </InkCanvas.Background>
+        </InkCanvas>
+        <Button x:Name="red"  HorizontalAlignment="Left" Margin="161,10,0,0" VerticalAlignment="Top" Width="21" Click="red_Click" Height="15" Background="Red"/>
+        <Button x:Name="blue"  HorizontalAlignment="Left" Margin="187,10,0,0" VerticalAlignment="Top" Width="21" Click="blue_Click" Height="15" Background="#FF000CFF"/>
+        <Button x:Name="yellow"  HorizontalAlignment="Left" Margin="213,10,0,0" VerticalAlignment="Top" Width="21" Click="yellow_Click" Height="15" Background="#FFFFF300"/>
+        <Button x:Name="black"  HorizontalAlignment="Left" Margin="135,10,0,0" VerticalAlignment="Top" Width="21" Click="black_Click" Height="15" Background="Black"/>
+        <Button x:Name="white"  HorizontalAlignment="Left" Margin="239,10,0,0" VerticalAlignment="Top" Width="21" Click="white_Click" Height="15" Background="White"/>
+        <ComboBox x:Name="brush" HorizontalAlignment="Left" Margin="265,10,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="brush_SelectionChanged">
+            <Label x:Name="Highlighter" Content="Yliviivaus kynä"/>
+            <Label x:Name="Grafiikka" Content="Mustekynä"/>
+            <Label x:Name="Sivellin" Content="Sivellin"/>
+            <Label x:Name="Tussi" Content="Tussi"/>
+            <Label x:Name="Erase_all" Content="Poisto "/>
+            <Label x:Name="Erase" Content="Kumi "/>
+            <Label x:Name="Select" Content="Select "/>
+        </ComboBox>
+        <Button x:Name="btnSave"  Content="Download" HorizontalAlignment="Left" Margin="397,10,0,0" VerticalAlignment="Top" Width="75" Click="Download_Click"/>
+        <Button x:Name="Upload" Content="Upload" HorizontalAlignment="Left" Margin="397,35,0,0" VerticalAlignment="Top" Width="75" Click="Upload_Click"/>
+        <TextBox x:Name="Nimi" HorizontalAlignment="Left" Height="23" Margin="20,35,0,0" TextWrapping="Wrap" Text="Nimi teokselle" VerticalAlignment="Top" Width="120"/>
+
+        <Image Name="imgDynamic" Margin="10"  />
+    </Grid>
+</Window>
