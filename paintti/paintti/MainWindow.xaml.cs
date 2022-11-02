@@ -27,7 +27,7 @@ namespace paintti
         {
             InitializeComponent();
 
-
+            CreateCircle(new CircleArea() { X = 100, Y = 200, Radius = 100 });
 
         }
         public int koko = 0;
@@ -104,11 +104,7 @@ namespace paintti
             {
                 kanvas.DefaultDrawingAttributes.StylusTip = StylusTip.Rectangle;
             }
-            if (brush.SelectedItem == ymp)
-            {
-                kanvas.Background = Colors.Cyan;
-              
-            }
+           
             if (brush.SelectedItem == Erase)
             {
                 kanvas.EditingMode = InkCanvasEditingMode.EraseByPoint;

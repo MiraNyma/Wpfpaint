@@ -33,7 +33,6 @@
             <Label x:Name="Erase" Content="Kumi "/>
             <Label x:Name="Select" Content="Select "/>
             <Label x:Name="Nel" Content="Neliö "/>
-            <Label x:Name="ymp" Content="Ympyrä "/>
         </ComboBox>
         <Button x:Name="btnSave"  Content="Download" HorizontalAlignment="Left" Margin="397,10,0,0" VerticalAlignment="Top" Width="75" Click="Download_Click"/>
         <Button x:Name="Upload" Content="Upload" HorizontalAlignment="Left" Margin="397,35,0,0" VerticalAlignment="Top" Width="75" Click="Upload_Click"/>
