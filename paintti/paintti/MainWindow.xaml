@@ -14,7 +14,7 @@
             <Label x:Name="Suuri" Content="Suuri"/>
         </ComboBox>
         <Border Margin="10,60,0,0">
-            <InkCanvas x:Name="kanvas" HorizontalAlignment="Left" Height="249"  VerticalAlignment="Top" Width="497" >
+            <InkCanvas x:Name="kanvas" HorizontalAlignment="Left" Height="249"  VerticalAlignment="Top" Width="497" MouseDown="Kordit" >
                 <InkCanvas.Background>
                     <SolidColorBrush Color="White" Opacity="1"/>
                 </InkCanvas.Background>
@@ -41,7 +41,7 @@
         <Button x:Name="Ympyra" Content="Koon muuttaminen" HorizontalAlignment="Left" Margin="213,37,0,0" VerticalAlignment="Top" Width="113" Height="20" Click="Koko"/>
         <TextBox x:Name="Korkeus" HorizontalAlignment="Left" Height="23" Margin="140,35,0,0" TextWrapping="Wrap" Text="Korkeus" VerticalAlignment="Top" Width="68"/>
         <Button x:Name="Flip" Content="Flip" HorizontalAlignment="Left" Margin="333,37,0,0" VerticalAlignment="Top" Width="59" Click="Flipped"/>
-        <Button x:Name="Ympra" Content="Ympyrä" HorizontalAlignment="Left" Margin="511,10,0,0" VerticalAlignment="Top" Width="50"/>
+        <Button x:Name="Ympra" Content="Ympyrä" HorizontalAlignment="Left" Margin="511,10,0,0" VerticalAlignment="Top" Width="50" Click="Ympyra_click"/>
         <Button x:Name="Neliö_Copy" Content="Neliö" HorizontalAlignment="Left" Margin="511,35,0,0" VerticalAlignment="Top" Width="50"/>
 
     </Grid>
